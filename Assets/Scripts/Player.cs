@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] public InputMaster controls;
     [SerializeField] public Tank tank;
+    [SerializeField] public Gun gun;
 
     private void Awake() {
         controls = new InputMaster();
@@ -24,10 +25,6 @@ public class Player : MonoBehaviour
         controls.Disable();
     }
 
-    private void Fire(double fireTime) {
-        CLog.Info($"Fired for {fireTime.ToString()}s");
-    }
-
     private void Move(float axisRatio) {
         CLog.Info($"Moving with {axisRatio.ToString()} ratio");
         tank.Move(axisRatio);
@@ -35,6 +32,10 @@ public class Player : MonoBehaviour
 
     private void MoveGun(float axisRatio) {
         CLog.Info($"Moving Gun with {axisRatio.ToString()} ratio");
-        tank.RotateGun(axisRatio);
+        gun.RotateGun(axisRatio);
+    }
+
+    private void Fire(double fireTime) {
+        CLog.Info($"Fired for {fireTime.ToString()}s");
     }
 }
