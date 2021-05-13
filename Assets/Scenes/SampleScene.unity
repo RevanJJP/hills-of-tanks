@@ -228,7 +228,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 456997989}
-  enginePower: 100
+  _enginePower: 100
+  gun: {fileID: 264979949}
+  gunRotationPower: 1
+  minRotateAngle: 0
+  maxRotateAngle: 180
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

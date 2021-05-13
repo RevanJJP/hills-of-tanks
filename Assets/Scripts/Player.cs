@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
         controls = new InputMaster();
         controls.Player.Fire.performed += context => Fire(context.duration);
         controls.Player.TankMovement.performed += context => Move(context.ReadValue<float>());
+        controls.Player.GunMovement.performed += context => MoveGun(context.ReadValue<float>());
     }
 
     private void OnEnable() {
@@ -32,7 +33,8 @@ public class Player : MonoBehaviour
         tank.Move(axisRatio);
     }
 
-    private void GunMove(float movementAxis) {
-        CLog.Info($"Moving Gun with {movementAxis.ToString()} ratio");
+    private void MoveGun(float axisRatio) {
+        CLog.Info($"Moving Gun with {axisRatio.ToString()} ratio");
+        tank.RotateGun(axisRatio);
     }
 }
