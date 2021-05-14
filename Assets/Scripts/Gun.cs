@@ -10,12 +10,12 @@ public class Gun : MonoBehaviour
     [SerializeField] public float minRotateAngle = 0.0f;
     [SerializeField] public float maxRotateAngle = 180.0f;
 
-    [SerializeField] public Missle misslePrefab;
-    [SerializeField] public Transform missleSpawner;
+    [SerializeField] public Missile missilePrefab;
+    [SerializeField] public Transform missileSpawner;
+    [SerializeField] public float gunFirePower = 100.0f;
+    [SerializeField] public float gunMaxForcePressDuration = 1.0f;
 
-    [SerializeField] public Transform cloudPrefab;
-    [SerializeField] public Transform cloudSpawner;
-
+    [SerializeField] public Animator gunAnimator;
 
     private float _gunRotationRatio = .0f;
 
@@ -43,5 +43,17 @@ public class Gun : MonoBehaviour
                 avatar.transform.localEulerAngles = new Vector3(0,0, maxRotateAngle);
         else
             avatar.transform.localEulerAngles = new Vector3(0,0, newAngle);
+    }
+    
+    public void Load() {
+        gunAnimator.SetTrigger("Loading");
+    }
+    public void Fire(float pressDuration) {
+        if(pressDuration > gunMaxForcePressDuration) pressDuration = 1.0f;
+        else pressDuration /= gunMaxForcePressDuration;
+
+        gunAnimator.SetTrigger("Release");
+        Missile missile = Instantiate(missilePrefab, missileSpawner.position, missileSpawner.rotation);
+        missile.missileRigidbody.AddRelativeForce(Vector2.right * pressDuration * gunFirePower);
     }
 }

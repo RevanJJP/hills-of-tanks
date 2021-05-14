@@ -36,6 +36,13 @@ public class Player : MonoBehaviour
     }
 
     private void Fire(double fireTime) {
-        CLog.Info($"Fired for {fireTime.ToString()}s");
+        if(fireTime == .0f) {
+            CLog.Info($"Loading gun");
+            gun.Load();
+            return;
+        }
+
+        CLog.Info($"Fired after loading {fireTime.ToString()}s");
+        gun.Fire((float) fireTime);
     }
 }
