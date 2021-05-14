@@ -14,7 +14,7 @@ public class Tank : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        avatar.velocity += (Vector2)this.transform.right * _horizontalVelocityRatio * _enginePower/1000.0f;
+        avatar.velocity += (Vector2) this.transform.right * _horizontalVelocityRatio * _enginePower/1000.0f;
     }
 
 

@@ -48,6 +48,7 @@ public class Gun : MonoBehaviour
     public void Load() {
         gunAnimator.SetTrigger("Loading");
     }
+    
     public void Fire(float pressDuration) {
         if(pressDuration > gunMaxForcePressDuration) pressDuration = 1.0f;
         else pressDuration /= gunMaxForcePressDuration;

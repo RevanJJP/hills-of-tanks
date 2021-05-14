@@ -19,7 +19,6 @@ public class Missile : MonoBehaviour
         else    {
             CLog.Info($"Missed! Hitted {other.name}");
             missileAnimatior.SetTrigger("MissileMiss");
-
         }
         missileRigidbody.Sleep();
     }
