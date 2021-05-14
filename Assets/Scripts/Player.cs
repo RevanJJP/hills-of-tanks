@@ -9,12 +9,30 @@ public class Player : MonoBehaviour
     [SerializeField] public InputMaster controls;
     [SerializeField] public Tank tank;
     [SerializeField] public Gun gun;
+    [SerializeField] public HealthBar healthBar;
+    
+    private int _defaultHealth;
+    private int  _health;
 
     private void Awake() {
         controls = new InputMaster();
         controls.Player.Fire.performed += context => Fire(context.duration);
         controls.Player.TankMovement.performed += context => Move(context.ReadValue<float>());
         controls.Player.GunMovement.performed += context => MoveGun(context.ReadValue<float>());
+
+        _defaultHealth = GameMaster.instance.primaryPlayerHealth;
+        _health = _defaultHealth;
+        healthBar.Health = (float) _health/_defaultHealth;
+    }
+
+    public int Health {
+        get {
+           return _health;
+        }
+        set {
+            _health = value;
+            healthBar.Health = (float) _health/_defaultHealth;
+        }
     }
 
     private void OnEnable() {
