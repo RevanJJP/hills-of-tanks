@@ -103,6 +103,7 @@ public class GameMaster : MonoBehaviour
     public void StartClock(int seconds) {
         clock = seconds;
         CLog.Info("Clock starts");
+        _clockIsRunning=true;
         StartCoroutine(countTime());
     }
 
@@ -112,6 +113,7 @@ public class GameMaster : MonoBehaviour
             clock-=1;
             if(clock <= 0) { 
                 NextTurn();
+                break;
             }
             yield return new WaitForSeconds(1);
         }
@@ -128,11 +130,6 @@ public class GameMaster : MonoBehaviour
         playerBlue.Stop();
         playerRed.Stop();
 
-        if(playerRed.Health <=.0f || playerBlue.Health <=.0f) {
-            GameOver();
-            return;
-        }
-
         if(GameObject.ReferenceEquals(_currentPlayer, playerBlue)) {
             _currentPlayer = playerRed;
             blueTankTurnIcon.gameObject.SetActive(false);
@@ -148,17 +145,20 @@ public class GameMaster : MonoBehaviour
         playerRed.Stop();
 
         CLog.Info($"New Turn: {_currentPlayer.gameObject.name}");
-        StartCoroutine(startTurnAfterSeconds(3));
+        StartCoroutine(startTurnAfterSeconds(2));
     }
 
     private IEnumerator startTurnAfterSeconds(int seconds){
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(seconds);
         _isBreak = false;
         StartClock(turnTime);
     }
 
     public void GameOver() {
-        if(playerRed.Health <= 0) blueTankWinnerIcon.gameObject.SetActive(true);
+        blueTankWinnerIcon.gameObject.SetActive(false);
+        redTankWinnerIcon.gameObject.SetActive(false);
+
+        if(playerRed.Health <= .0f) blueTankWinnerIcon.gameObject.SetActive(true);
         else redTankWinnerIcon.gameObject.SetActive(true);
         endScreen.SetActive(true);
         

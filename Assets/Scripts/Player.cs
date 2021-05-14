@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
         set {
             _health = value;
             healthBar.Health = (float) _health/_defaultHealth;
+            if(_health <= .0f) GameMaster.instance.GameOver();
         }
     }
 
