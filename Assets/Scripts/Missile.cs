@@ -7,15 +7,20 @@ public class Missile : MonoBehaviour
 {
     [SerializeField] public Transform missileAvatar;
     [SerializeField] public Rigidbody2D missileRigidbody;
+    [SerializeField] public Animator missileAnimatior;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
+        Player player = other.GetComponentInParent<Player>();
+        if(player != null) {
+            CLog.Info("Hit Player!");
+            missileAnimatior.SetTrigger("MissileHit");
+            player.Health -= 1;
+        }
+        else    {
+            CLog.Info($"Missed! Hitted {other.name}");
+            missileAnimatior.SetTrigger("MissileMiss");
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {   
+        }
+        missileRigidbody.Sleep();
     }
 }
